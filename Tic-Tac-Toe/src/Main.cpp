@@ -1,24 +1,16 @@
-#include <iostream>
-#include "DrawField.h"
+#include "Field.h"
 
-const int sizeOfFiled = 3;
 const char fullBlock = char(219);
 
 int main() {
-	int field[sizeOfFiled][sizeOfFiled]{};
-	for (int i = 0; i < sizeOfFiled; i++) {
-		for (int j = 0; j < sizeOfFiled; j++) {
-			field[i][j] = 1;
-		}
-	}
+	char field[3][3];
 
-	std::cout << "------------" << std::endl;
-	for (int i = 0; i < sizeOfFiled; i++) {
-		for (int j = 0; j < sizeOfFiled; j++) {
-			std::cout << " " << field[i][j] << " " << "|";
-		}
-		std::cout << std::endl << "------------" << std::endl;
-	}
+	InitializeField(field);
+
+	// Testing a field change
+	field[0][1] = fullBlock;
+
+	DrawField(field);
 	return 0;
 }
 
