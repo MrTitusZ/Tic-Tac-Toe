@@ -1,16 +1,24 @@
 #include <iostream>
-#include <thread>
-#include <chrono>
+#include "DrawField.h"
 
-const int sizeOfFiled = 5;
+const int sizeOfFiled = 3;
 const char fullBlock = char(219);
 
 int main() {
-	int frame = 0;
-	while(true) {
-
+	int field[sizeOfFiled][sizeOfFiled]{};
+	for (int i = 0; i < sizeOfFiled; i++) {
+		for (int j = 0; j < sizeOfFiled; j++) {
+			field[i][j] = 1;
+		}
 	}
-	std::cout << "Waiting..." << std::endl;
-	std::this_thread::sleep_for(std::chrono::seconds(3));
+
+	std::cout << "------------" << std::endl;
+	for (int i = 0; i < sizeOfFiled; i++) {
+		for (int j = 0; j < sizeOfFiled; j++) {
+			std::cout << " " << field[i][j] << " " << "|";
+		}
+		std::cout << std::endl << "------------" << std::endl;
+	}
 	return 0;
 }
+
