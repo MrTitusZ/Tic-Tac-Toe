@@ -1,9 +1,12 @@
 #include <iostream>
 #include <conio.h>
 #include <cstdlib>
+#include <algorithm>
 #include "Field.h"
 
+int Clamp(int val, int min, int max);
 void ClearScreen();
+void HandleUserInput();
 
 enum Key
 {
@@ -11,7 +14,9 @@ enum Key
 	DownArrow = 80,
 	RightArrow = 77,
 	LeftArrow = 75,
-	Esc = 27
+	Enter = 13,
+	Esc = 27,
+	ArrowIndicator = 224
 };
 
 int main() {
@@ -20,32 +25,57 @@ int main() {
 	bool isPlaying = true;
 
 	InitializeField(field);
+	field[0][0] = fullBlock;
+	DrawField(field);
 
-	// Testing a field change
-	field[0][1] = fullBlock;
-
-	int c;
+	int ch, i = 0, j = 0;
 	while (isPlaying)
 	{
-		
-		DrawField(field);
-
-		c = _getch();
-		if (c == 224)
-			c = _getch();
-		switch (c)
+		ch = _getch();
+		if (ch == ArrowIndicator) // If the character is and arrow indicator it means that the next character will be an arrow
+			ch = _getch();
+		switch (ch)
 		{
 		case UpArrow:
-			std::cout << "UpArrow pressed!" << std::endl;
+			field[i][j] = ' ';
+			i--;
+			i = Clamp(i, 0, 2);
+			j = Clamp(j, 0, 2);
+			ClearScreen();
+			field[i][j] = fullBlock;
+			DrawField(field);
 			break;
 		case DownArrow:
-			std::cout << "DownArrow pressed!" << std::endl;
+			field[i][j] = ' ';
+			i++;
+			i = Clamp(i, 0, 2);
+			j = Clamp(j, 0, 2);
+			ClearScreen();
+			field[i][j] = fullBlock;
+			DrawField(field);
 			break;
 		case RightArrow:
-			std::cout << "RightArrow pressed!" << std::endl;
+			field[i][j] = ' ';
+			j++;
+			i = Clamp(i, 0, 2);
+			j = Clamp(j, 0, 2);
+			ClearScreen();
+			field[i][j] = fullBlock;
+			DrawField(field);
 			break;
 		case LeftArrow:
-			std::cout << "LeftArrow pressed!" << std::endl;
+			field[i][j] = ' ';
+			j--;
+			i = Clamp(i, 0, 2);
+			j = Clamp(j, 0, 2);
+			ClearScreen();
+			field[i][j] = fullBlock;
+			DrawField(field);
+			break;
+		case Enter:
+			ClearScreen();
+			field[i][j] = 'x';
+			DrawField(field);
 			break;
 		case Esc:
 			isPlaying = false;
@@ -54,11 +84,13 @@ int main() {
 			std::cout << "default!" << std::endl;
 			break;
 		}
-
-		ClearScreen();
 	}
 	
 	return 0;
+}
+
+void HandleUserInput() {
+
 }
 
 void ClearScreen() {
@@ -67,4 +99,13 @@ void ClearScreen() {
 #else
 	system("clear");
 #endif
+}
+
+int Clamp(int val, int min, int max) {
+	if (val <= min)
+		return min;
+	else if (val >= max)
+		return max;
+	else
+		return val;
 }
