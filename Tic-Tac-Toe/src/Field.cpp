@@ -12,9 +12,10 @@ void DrawField(char field[3][3]) {
 }
 
 void InitializeField(char field[3][3]) {
+	char emptyField = ' ';
 	for (int i = 0; i < sizeof(field[i]); i++) {
 		for (int j = 0; j < sizeof(field[j]); j++) {
-			field[i][j] = ' ';
+			field[i][j] = emptyField;
 		}
 	}
 }
