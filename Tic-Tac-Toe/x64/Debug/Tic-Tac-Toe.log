@@ -1,2 +1,3 @@
-﻿  Main.cpp
+﻿  Field.cpp
+C:\Users\Klári\Downloads\C++\Tic-Tac-Toe\Tic-Tac-Toe\src\Field.cpp(26,20): warning C4309: 'initializing': truncation of constant value
   Tic-Tac-Toe.vcxproj -> C:\Users\Klári\Downloads\C++\Tic-Tac-Toe\x64\Debug\Tic-Tac-Toe.exe
